@@ -92,8 +92,11 @@ class TestFileStorage(unittest.TestCase):
 
         all_objects = self.storage.all()
         self.assertIn("BaseModel.12345", all_objects)
-        self.assertIsInstance(all_objects["BaseModel.12345"].created_at, datetime)
-        self.assertEqual(all_objects["BaseModel.12345"].created_at, current_time)
+        self.assertIsInstance(all_objects["BaseModel.12345"].created_at,
+                              datetime)
+        self.assertEqual(all_objects["BaseModel.12345"].created_at,
+                         current_time)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -6,6 +6,7 @@ Unittests for the User class
 import unittest
 from models.user import User
 
+
 class TestUser(unittest.TestCase):
     """Test cases for the User class"""
 
@@ -32,7 +33,8 @@ class TestUser(unittest.TestCase):
         self.user.save()
 
         # Verify if the modifications have been saved to the JSON file
-        # Your code to check the content of the JSON file and validate the user attributes
+        # Your code to check the content of the JSON file and validate
+        # the user attributes
 
     def test_user_str_method(self):
         """Test the __str__() method of User"""
@@ -43,6 +45,7 @@ class TestUser(unittest.TestCase):
 
         expected_str = f"[User] ({self.user.id}) {self.user.__dict__}"
         self.assertEqual(str(self.user), expected_str)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -25,8 +25,10 @@ class TestBaseModel(unittest.TestCase):
         model_dict = self.model.to_dict()
         self.assertEqual(model_dict['__class__'], 'BaseModel')
         self.assertEqual(model_dict['id'], self.model.id)
-        self.assertEqual(model_dict['created_at'], self.model.created_at.isoformat())
-        self.assertEqual(model_dict['updated_at'], self.model.updated_at.isoformat())
+        self.assertEqual(model_dict['created_at'],
+                         self.model.created_at.isoformat())
+        self.assertEqual(model_dict['updated_at'],
+                         self.model.updated_at.isoformat())
 
     def test_from_dict_method(self):
         model_dict = {
@@ -37,8 +39,11 @@ class TestBaseModel(unittest.TestCase):
         }
         new_model = BaseModel(**model_dict)
         self.assertEqual(new_model.id, '12345')
-        self.assertEqual(new_model.created_at.isoformat(), '2022-01-01T12:00:00')
-        self.assertEqual(new_model.updated_at.isoformat(), '2022-01-01T12:00:00')
+        self.assertEqual(new_model.created_at.isoformat(),
+                         '2022-01-01T12:00:00')
+        self.assertEqual(new_model.updated_at.isoformat(),
+                         '2022-01-01T12:00:00')
+
 
 if __name__ == "__main__":
     unittest.main()
