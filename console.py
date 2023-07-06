@@ -106,8 +106,7 @@ class HBNBCommand(cmd.Cmd):
             print('** no instance found **')
             return
 
-        instance = models.storage.all()[key]
-        del instance
+        del models.storage.all()[key]
         models.storage.save()
 
     def do_all(self, arg):
