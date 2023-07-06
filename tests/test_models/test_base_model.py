@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+Unittests for testing instantiation of the Base_model class.
+"""
 import unittest
 from models.base_model import BaseModel
 

@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+Unittests for testing instantiation of the User class.
+"""
 import unittest
 from models.user import User
 
