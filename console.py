@@ -11,6 +11,7 @@ from models.place import Place
 from models.review import Review
 import models
 
+
 class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
 
@@ -124,7 +125,6 @@ class HBNBCommand(cmd.Cmd):
 
         print([str(instance) for instance in instances])
 
-
     def do_update(self, arg):
         """Update an instance based on the class name and id"""
         args = shlex.split(arg)
@@ -165,6 +165,7 @@ class HBNBCommand(cmd.Cmd):
         obj = objects[key]
         setattr(obj, attr_name, attr_value)
         models.storage.save()
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
