@@ -19,6 +19,20 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 
+class TestFileStorage_methods(unittest.TestCase):
+    """Unittests for testing methods of the FileStorage class."""
+
+    @classmethod
+    def setUpClass(cls):
+        """Set up test fixtures for the class."""
+        with open("file.json", "w") as file:
+            file.write("{}")
+
+    @classmethod
+    def tearDownClass(cls):
+        """Tear down test fixtures for the class."""
+        os.remove("file.json")
+        FileStorage._FileStorage__objects = {}
 
 class TestFileStorage_instantiation(unittest.TestCase):
     """Unittests for testing instantiation of the FileStorage class."""
