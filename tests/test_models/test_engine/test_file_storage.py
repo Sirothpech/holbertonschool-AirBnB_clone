@@ -18,7 +18,9 @@ from models.engine.file_storage import FileStorage
 
 
 class TestFileStorage(unittest.TestCase):
-    """Test cases for the FileStorage class"""
+    """
+    Test cases for the FileStorage class
+    """
 
     def setUp(self):
         """Set up test fixtures"""
