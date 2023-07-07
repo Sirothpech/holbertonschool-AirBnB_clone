@@ -2,7 +2,6 @@
 """
 Unittests for the FileStorage class
 """
-
 import unittest
 import os
 import json
