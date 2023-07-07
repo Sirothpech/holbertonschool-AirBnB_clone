@@ -22,16 +22,6 @@ class FileStorage:
     __file_path = "file.json"
     __objects = {}
 
-    class_mapping = {
-        "BaseModel": BaseModel,
-        "User": User,
-        "State": State,
-        "City": City,
-        "Amenity": Amenity,
-        "Place": Place,
-        "Review": Review
-    }
-
     def all(self):
         """
         Returns the dictionary __objects.
@@ -65,14 +55,10 @@ class FileStorage:
         If the file doesn't exist, no exception should be raised.
         """
         try:
-            with open(self.__file_path, 'r') as file:
-                obj_dict = json.load(file)
-                for key, obj_attr in obj_dict.items():
-                    class_name, obj_id = key.split('.')
-                    obj_attr["__class__"] = class_name
-                    if class_name in __class__.class_mapping:
-                        class_obj = __class__.class_mapping[class_name]
-                        obj = class_obj(**obj_attr)
-                        self.__objects[key] = obj
+            with open(FileStorage.__file_path, "r") as file:
+                object = json.load(file)
+                for key, value in object.items():
+                    FileStorage.__objects[key] =\
+                        eval(value['__class__'])(**value)
         except FileNotFoundError:
             pass
