@@ -16,6 +16,10 @@ import models
 
 
 class HBNBCommand(cmd.Cmd):
+    """
+    This class contains the entry point of the command interpreter.
+    """
+
     prompt = '(hbnb) '
 
     class_mapping = {
@@ -26,7 +30,6 @@ class HBNBCommand(cmd.Cmd):
         "Amenity": Amenity,
         "Place": Place,
         "Review": Review
-        # Ajoutez d'autres correspondances de classe ici
     }
 
     def do_quit(self, arg):
