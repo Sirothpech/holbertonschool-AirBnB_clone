@@ -1,69 +1,78 @@
 #!/usr/bin/python3
-"""
-This module provides testing for the FileStorage class.
-"""
+"""Defines unittests for models/engine/file_storage.py.
 
+Unittest classes:
+    TestFileStorage_instantiation
+    TestFileStorage_methods
+"""
+import os
+import json
+import models
 import unittest
-import datetime
+from datetime import datetime
 from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
 from models.user import User
-from models.place import Place
 from models.state import State
+from models.place import Place
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
-from models.engine.file_storage import FileStorage
-from models import storage
 
 
 class TestFileStorage(unittest.TestCase):
-    """
-    Unit tests for the FileStorage class.
-    """
+    """class Test for the FileStorage class"""
 
     def setUp(self):
-        """
-        Set up the test fixture.
-        """
-        self.file_storage = FileStorage()
+        """Clear the file.json"""
+        FileStorage._FileStorage__objects = {}
+        FileStorage().save()
 
-    def tearDown(self):
-        """
-        Clean up the test fixture.
-        """
-        self.file_storage = None
+    def test_init(self):
+        """Test initialisation"""
+        f = FileStorage()
+        self.assertEqual(type(f), FileStorage)
+        self.assertEqual({}, f._FileStorage__objects)
+        self.assertEqual("file.json", f._FileStorage__file_path)
 
-    def test_all_returns_dictionary(self):
-        """
-        Test that the all() method returns a dictionary.
-        """
-        all_objects = self.file_storage.all()
-        self.assertIsInstance(all_objects, dict)
+    def test_all(self):
+        """Test the all function"""
+        f = FileStorage()
+        new_dict = f.all()
+        self.assertEqual(type(new_dict), dict)
+        self.assertDictEqual(new_dict, {})
 
-    def test_new_adds_object_to_all(self):
-        """
-        Test that the new() method adds an object to the all() dictionary.
-        """
+    def test_new(self):
+        """Test the new function"""
+        model = BaseModel()
+        self.assertEqual(len(FileStorage().all()), 1)
         user = User()
-        self.file_storage.new(user)
-        all_objects = self.file_storage.all()
-        self.assertIn(f"User.{user.id}", all_objects)
-        self.assertEqual(all_objects[f"User.{user.id}"], user)
+        self.assertEqual(len(FileStorage().all()), 2)
 
-    def test_save_writes_to_file(self):
-        """
-        Test that the save() method writes to the file.
-        """
+    def test_save(self):
+        """Test the save function"""
+        self.setUp()
+        self.assertEqual(os.path.getsize("file.json"), 2)
+        os.remove("file.json")
+        model = BaseModel()
+        model.save()
+        self.assertTrue(os.path.exists("file.json"))
+        self.assertGreater(os.path.getsize("file.json"), 2)
+
+    def test_reload(self):
+        """Test the reload function"""
+        self.setUp()
+        model = BaseModel()
         user = User()
-        self.file_storage.new(user)
-        self.file_storage.save()
+        FileStorage().save()
+        FileStorage._FileStorage__objects = {}
+        self.assertEqual(len(FileStorage().all()), 0)
+        FileStorage().reload()
+        self.assertEqual(len(FileStorage().all()), 2)
 
-    def test_reload_loads_objects_from_file(self):
-        """
-        Test that the reload() method loads objects from the file.
-        """
-        self.file_storage.reload()
-        self.file_storage.all()
+
+if __name__ == '__main__':
+    unittest.main()
 
 
 if __name__ == "__main__":
