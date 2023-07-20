@@ -87,3 +87,7 @@ article h2 {
 .owner .name {
   font-weight: normal;
 }
+
+.description {
+  margin-top: auto;
+}
