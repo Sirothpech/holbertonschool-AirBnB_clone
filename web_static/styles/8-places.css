@@ -86,6 +86,7 @@ article h2 {
 
 .owner .name {
   font-weight: normal;
+  padding-left: 3px;
 }
 
 .description {
